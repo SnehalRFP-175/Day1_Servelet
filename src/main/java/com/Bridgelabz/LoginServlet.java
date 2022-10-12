@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 )
 public class LoginServlet extends HttpServlet {
     private String validName = "[A-Z][a-z]{2,}";
+    private String ValidPass = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=[^@#$%^&*+=].{8,}$";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +35,7 @@ public class LoginServlet extends HttpServlet {
         String userId = getServletConfig().getInitParameter("user");
         String password = getServletConfig().getInitParameter("password");
 
-        if (user.matches(validName))
+        if (user.matches(validName) && password.matches(ValidPass))
         {
             if (user.equals(user) && userId.equals(user) && password.equals(pwd)){
                 request.setAttribute("user", user);
@@ -51,7 +52,7 @@ public class LoginServlet extends HttpServlet {
         else
         {
             PrintWriter out = response.getWriter();
-            out.write("<font color=red>Enter Valid User Name....</font>");
+            out.write("<font color=red>Enter Valid User Name or Valid Password....</font>");
         }
 
     }
